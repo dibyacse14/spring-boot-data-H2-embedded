@@ -1,8 +1,9 @@
-package com.iamvickyav.springboot.SpringBootRestWithH2;
+package com.dibya.springboot.service;
 
-import com.iamvickyav.springboot.SpringBootRestWithH2.model.Employee;
-import com.iamvickyav.springboot.SpringBootRestWithH2.service.EmployeeService;
+import com.dibya.springboot.dao.EmployeeDAO;
+import com.dibya.springboot.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -14,7 +15,8 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
-
+    @Autowired
+    EmployeeDAO employeeDAO;
     // Select, Insert, Delete, Update Operations for an Employee
 
     @RequestMapping(value = "/employee", method = RequestMethod.GET)
@@ -23,9 +25,10 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employee", method = RequestMethod.POST)
-    String addEmployee(@RequestBody Employee employee){
-        Employee savedEmployee = employeeService.save(employee);
-        return "SUCCESS";
+    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) throws InterruptedException {
+//        Employee savedEmployee = employeeService.save(employee);
+        Employee savedEmployee = employeeDAO.insertEmployee(employee);
+        return ResponseEntity.ok(savedEmployee);
     }
 
     @RequestMapping(value = "/employee", method = RequestMethod.PUT)

@@ -1,4 +1,4 @@
-package com.iamvickyav.springboot.SpringBootRestWithH2.model;
+package com.dibya.springboot.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
